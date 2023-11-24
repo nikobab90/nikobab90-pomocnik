@@ -59,3 +59,6 @@ public class IspitivanjeRepo
         return new SqlConnection(_configuration.GetConnectionString("DefaultConnection"));
     }
 }
+
+git config user.email "nikolababenkozg@gmail.com"
+git config user.name "Nikola Babenko"
