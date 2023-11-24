@@ -24,13 +24,14 @@ public class KlijentiRepo
         return db.QueryFirstOrDefault<GetKlijentResponseVM>("GetTvrtka", parameters, commandType: CommandType.StoredProcedure);
     }
 
-    public List<GetAllKlijentiResponseVM?> GetAllTvrtka()
+    public async Task<List<GetAllKlijentiResponseVM>> GetAllTvrtka()
     {
         using IDbConnection db = GetConnection();
-        
-        var klijenti = db.Query<GetAllKlijentiResponseVM>("GetAllTvrtka", commandType: CommandType.StoredProcedure).ToList();
 
-        return klijenti;
+        IEnumerable<GetAllKlijentiResponseVM> klijenti = await db.QueryAsync<GetAllKlijentiResponseVM>(
+            "GetAllTvrtka", commandType: CommandType.StoredProcedure);
+
+        return klijenti.ToList();
     }
     
     private SqlConnection GetConnection()

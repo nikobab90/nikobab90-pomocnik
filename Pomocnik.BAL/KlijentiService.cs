@@ -20,10 +20,8 @@ public class KlijentiService
     }
 
     // dohvati sve tvrtke
-    public List<GetAllKlijentiResponseVM?> GetAllTvrtka()
+    public async Task<List<GetAllKlijentiResponseVM>> GetAllTvrtka()
     {
-        List<GetAllKlijentiResponseVM?> klijenti = _klijentiRepo.GetAllTvrtka();
-
-        return klijenti;
+        return await _klijentiRepo.GetAllTvrtka();
     }
 }

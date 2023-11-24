@@ -40,23 +40,11 @@ public class KlijentiController : ControllerBase
     }
     
     // dohvati sve tvrtke
-    [HttpGet("Popis svih klijenata")]
-    public ActionResult<List<GetAllKlijentiResponseVM>> GetAllTvrtka()
+    [HttpGet("popisSvihklijenata")]
+    public async Task<ActionResult<List<GetAllKlijentiResponseVM>>> GetAllTvrtka()
     {
-        try
-        {
-            List<GetAllKlijentiResponseVM?> tvrtke = _klijentiService.GetAllTvrtka();
-
-            if (tvrtke.Count > 0)
-            {
-                return Ok(tvrtke);
-            }
-
-            return NotFound("Nema dostupnih ispitivanja.");
-        }
-        catch
-        {
-            return StatusCode(500, "Greška pri pozivu servisa");
-        }
+        var tvrtke = await _klijentiService.GetAllTvrtka();
+        return Ok(tvrtke);
     }
+    
 }

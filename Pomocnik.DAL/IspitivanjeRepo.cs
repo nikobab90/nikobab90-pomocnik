@@ -14,6 +14,7 @@ public class IspitivanjeRepo
     {
         _configuration = configuration;
     }
+    
     // Http zahtjev: dohvati ispitivanje po id-u
     public GetIspitivanjeResponseVM? GetIspitivanje(int id)
     {
@@ -24,6 +25,25 @@ public class IspitivanjeRepo
 
         return db.QueryFirstOrDefault<GetIspitivanjeResponseVM>("GetIspitivanje", parameters, commandType: CommandType.StoredProcedure);
     }
+    
+    // public async Task<int> InsertZapisStavke(ZapisStavke zapisStavke)
+    // {
+    //     using IDbConnection conn = Connection;
+    //     var result = await conn.QueryAsync<int>("InsertZapisStavke",
+    //         new
+    //         {
+    //             zapisStavke.TipZapisa,
+    //             zapisStavke.ZapisId,
+    //             zapisStavke.Naziv,
+    //             zapisStavke.Identifikator,
+    //             zapisStavke.DatumOd,
+    //             zapisStavke.DatumDo
+    //             
+    //         },
+    //         commandType: CommandType.StoredProcedure);
+    //     return result.First();
+    // }
+    
     // dodaj novo ispitivanje
     public void PostIspitivanje(PostIspitivanjeVM ispitivanje)
     {
@@ -60,5 +80,5 @@ public class IspitivanjeRepo
     }
 }
 
-git config user.email "nikolababenkozg@gmail.com"
-git config user.name "Nikola Babenko"
+
+
