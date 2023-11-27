@@ -35,6 +35,28 @@ public class ServisiranjeRepo
         return servisi.ToList();
     }
     
+    // dodaj novo Servisiranje
+    public async Task<int> PostServisiranje(PostServisiranjeVM servisiranje)
+    {
+        using IDbConnection db = GetConnection();
+        var result = await db.QueryAsync<int>("PostServisiranje",
+            new
+            {
+                servisiranje.SerijskiBroj,
+                servisiranje.TvornickiBroj,
+                servisiranje.DatumOd,
+                servisiranje.DatumDo,
+                servisiranje.Cijena,
+                servisiranje.Pdv,
+                servisiranje.TvrtkaId,
+                servisiranje.VrstaServisiranjaId,
+                servisiranje.LokacijaId,
+                servisiranje.ZaposlenikId
+            },
+            commandType: CommandType.StoredProcedure);
+        return result.First();
+    }
+    
     private SqlConnection GetConnection()
     {
         return new SqlConnection(_configuration.GetConnectionString("DefaultConnection"));

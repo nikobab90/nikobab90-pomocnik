@@ -47,4 +47,19 @@ public class ZaposleniciController : ControllerBase
         var zaposleni = await _zaposleniciService.GetAllZaposlenici();
         return Ok(zaposleni);
     }
+
+    // dodaj novog Zaposlenika
+    [HttpPost]
+    public async Task<IActionResult> PostZaposlenici([FromBody] PostZaposleniciVM zaposlenik)
+    {
+        try
+        {
+            int insertedId = await _zaposleniciService.PostZaposlenici(zaposlenik);
+            return CreatedAtAction(nameof(PostZaposlenici), new { id = insertedId }, zaposlenik);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, "Došlo je do greške prilikom umetanja zaposlenika: " + ex.Message);
+        }
+    }
 }

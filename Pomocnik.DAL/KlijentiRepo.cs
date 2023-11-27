@@ -34,6 +34,23 @@ public class KlijentiRepo
         return klijenti.ToList();
     }
     
+    // dodaj novu tvrtku
+    public async Task<int> PostTvrtka(PostKlijentiVM klijent)
+    {
+        using IDbConnection db = GetConnection();
+        var result = await db.QueryAsync<int>("PostTvrtka",
+            new
+            {
+                klijent.Naziv,
+                klijent.Oib,
+                klijent.OvlastenikId,
+                klijent.KontaktPodatciId
+                
+            },
+            commandType: CommandType.StoredProcedure);
+        return result.First();
+    }
+    
     private SqlConnection GetConnection()
     {
         return new SqlConnection(_configuration.GetConnectionString("DefaultConnection"));

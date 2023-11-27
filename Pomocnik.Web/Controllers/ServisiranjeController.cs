@@ -29,7 +29,6 @@ public class ServisiranjeController : ControllerBase
             {
                 return Ok(servisiranje);
             }
-
             return NotFound();
         }
         catch
@@ -44,5 +43,20 @@ public class ServisiranjeController : ControllerBase
     {
         var servisi =await _servisiranjeService.GetAllServisiranje();
         return Ok(servisi);
+    }
+    
+    // dodaj novo Servisiranje
+    [HttpPost]
+    public async Task<IActionResult> PostServisiranje([FromBody] PostServisiranjeVM servisiranje)
+    {
+        try
+        {
+            int insertedId = await _servisiranjeService.PostServisiranje(servisiranje);
+            return CreatedAtAction(nameof(PostServisiranje), new { id = insertedId }, servisiranje);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, "Došlo je do greške prilikom umetanja Tvrtke: " + ex.Message);
+        }
     }
 }

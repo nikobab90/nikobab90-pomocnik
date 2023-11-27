@@ -24,4 +24,19 @@ public class KlijentiService
     {
         return await _klijentiRepo.GetAllTvrtka();
     }
+    
+    // dodaj novog Zaposlenika
+    public async Task<int> PostTvrtka(PostKlijentiVM noviKlijent)
+    {
+        var klijentiEntity = new PostKlijentiVM
+        {
+            Naziv = noviKlijent.Naziv,
+            Oib = noviKlijent.Oib,
+            OvlastenikId = noviKlijent.OvlastenikId,
+            KontaktPodatciId = noviKlijent.KontaktPodatciId,
+        };
+
+        // Dodaj Tvrtku u bazu podataka
+        return await _klijentiRepo.PostTvrtka(klijentiEntity);
+    }
 }

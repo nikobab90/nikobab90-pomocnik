@@ -22,11 +22,11 @@ public class IspitivanjeService
     //dohvati sva ispitivanja
     public async Task<List<GetAllIspitivanjeResponseVM>> GetAllIspitivanje()
     {
-        return await _ispitivanjeRepo.GetAllIspitivanje();
+        return (await _ispitivanjeRepo.GetAllIspitivanje())!;
     }
     
     // dodaj novo ispitivanje
-    public void PostIspitivanje(PostIspitivanjeVM novoIspitivanje)
+    public async Task<int> PostIspitivanje(PostIspitivanjeVM novoIspitivanje)
     {
         // Pretvori GetIspitivanjeResponseVM u instancu Ispitivanje entiteta 
         var ispitivanjeEntity = new PostIspitivanjeVM
@@ -44,6 +44,7 @@ public class IspitivanjeService
         };
 
         // Dodaj ispitivanje u bazu podataka
-        _ispitivanjeRepo.PostIspitivanje(ispitivanjeEntity);
+        await _ispitivanjeRepo.PostIspitivanje(ispitivanjeEntity);
+        return novoIspitivanje.Id;
     }
 }

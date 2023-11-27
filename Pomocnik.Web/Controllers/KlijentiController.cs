@@ -46,4 +46,19 @@ public class KlijentiController : ControllerBase
         var tvrtke = await _klijentiService.GetAllTvrtka();
         return Ok(tvrtke);
     }
+    
+    // dodaj novog Klijenta/Tvrtku
+    [HttpPost]
+    public async Task<IActionResult> PostTvrtka([FromBody] PostKlijentiVM klijent)
+    {
+        try
+        {
+            int insertedId = await _klijentiService.PostTvrtka(klijent);
+            return CreatedAtAction(nameof(PostTvrtka), new { id = insertedId }, klijent);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, "Došlo je do greške prilikom umetanja Tvrtke: " + ex.Message);
+        }
+    }
 }

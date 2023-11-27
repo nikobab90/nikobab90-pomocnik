@@ -35,6 +35,24 @@ public class ZaposleniciRepo
         return zaposlenici.ToList();
     }
     
+    // dodaj novog zaposlenika
+    public async Task<int> PostZaposlenici(PostZaposleniciVM zaposlenik)
+    {
+        using IDbConnection db = GetConnection();
+        var result = await db.QueryAsync<int>("PostZaposlenik",
+            new
+            {
+                zaposlenik.Ime,
+                zaposlenik.Prezime,
+                zaposlenik.Oib,
+                zaposlenik.TvrtkaId,
+                zaposlenik.KontaktPodatciId
+                
+            },
+            commandType: CommandType.StoredProcedure);
+        return result.First();
+    }
+    
     private SqlConnection GetConnection()
     {
         return new SqlConnection(_configuration.GetConnectionString("DefaultConnection"));

@@ -24,4 +24,27 @@ public class ServisiranjeService
     {
         return await _servisiranjeRepo.GetAllServisiranje();
     }
+    
+    // dodaj novo Servisiranje
+    public async Task<int> PostServisiranje(PostServisiranjeVM novoServisiranje)
+    {
+        // Pretvori GetIspitivanjeResponseVM u instancu Ispitivanje entiteta 
+        var servisiranjeEntity = new PostServisiranjeVM
+        {
+            SerijskiBroj = novoServisiranje.SerijskiBroj,
+            TvornickiBroj = novoServisiranje.TvornickiBroj,
+            DatumOd = novoServisiranje.DatumOd,
+            DatumDo = novoServisiranje.DatumDo,
+            Cijena = novoServisiranje.Cijena,
+            Pdv = novoServisiranje.Pdv,
+            TvrtkaId = novoServisiranje.TvrtkaId,
+            VrstaServisiranjaId = novoServisiranje.VrstaServisiranjaId,
+            LokacijaId = novoServisiranje.LokacijaId,
+            ZaposlenikId = novoServisiranje.ZaposlenikId
+        };
+
+        // Dodaj ispitivanje u bazu podataka
+        await _servisiranjeRepo.PostServisiranje(servisiranjeEntity);
+        return novoServisiranje.Id;
+    }
 }

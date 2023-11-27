@@ -29,7 +29,6 @@ public class IspitivanjeController : ControllerBase
             {
                 return Ok(ispitivanje);
             }
-
             return NotFound();
         }
         catch
@@ -47,44 +46,17 @@ public class IspitivanjeController : ControllerBase
     }
     
     // dodaj novo ispitivanje
-    [HttpPost("{id}")]
-        public ActionResult PostIspitivanje([FromBody] PostIspitivanjeVM request)
+    [HttpPost]
+    public async Task<IActionResult> PostIspitivanje([FromBody] PostIspitivanjeVM ispitivanje)
+    {
+        try
         {
-            try
-            {
-                if (request.Id > 0)  
-                    //if (request.Id != null && request.Id.Any())
-                {
-                    // Pretvori GettIspitivanjeRequestVM u instancu GetIspitivanjeResponseVM
-                    PostIspitivanjeVM novoIspitivanje = new PostIspitivanjeVM
-                    {
-                        SerijskiBroj = request.SerijskiBroj,
-                        TvornickiBroj = request.TvornickiBroj,
-                        DatumOd = request.DatumOd,
-                        DatumDo = request.DatumDo,
-                        Cijena = request.Cijena,
-                        Pdv = request.Pdv,
-                        TvrtkaId = request.TvrtkaId,
-                        VrstaIspitivanjaId = request.VrstaIspitivanjaId,
-                        LokacijaId = request.LokacijaId,
-                        ZaposlenikId = request.ZaposlenikId
-                    };
-
-                    // Pozovi servis da dodas novo ispitivanje
-                    _ispitivanjeService.PostIspitivanje(novoIspitivanje);
-
-                    // Vrati novo ispitivanje sa statusom 201 Created
-                    return CreatedAtAction(nameof(PostIspitivanje), new { id = novoIspitivanje.Id }, novoIspitivanje);
-                    
-                }
-                else
-                {
-                    return BadRequest(ModelState);
-                }
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, "Došlo je do greške prilikom obrade zahtjeva: " + ex.Message);
-            }
+            int insertedId = await _ispitivanjeService.PostIspitivanje(ispitivanje);
+            return CreatedAtAction(nameof(PostIspitivanje), new { id = insertedId }, ispitivanje);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, "Došlo je do greške prilikom umetanja Tvrtke: " + ex.Message);
         }
     }
+}

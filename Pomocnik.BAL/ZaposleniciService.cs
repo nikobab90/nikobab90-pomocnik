@@ -25,4 +25,22 @@ public class ZaposleniciService
     {
         return await _zaposleniciRepo.GetAllZaposlenici();
     }
+    
+    // dodaj novog Zaposlenika
+    public async Task<int> PostZaposlenici(PostZaposleniciVM noviZaposlenik)
+    {
+    
+        // Pretvori GetIspitivanjeResponseVM u instancu Ispitivanje entiteta 
+        var zaposleniciEntity = new PostZaposleniciVM
+        {
+            Ime = noviZaposlenik.Ime,
+            Prezime = noviZaposlenik.Prezime,
+            Oib = noviZaposlenik.Oib,
+            TvrtkaId = noviZaposlenik.TvrtkaId,
+            KontaktPodatciId = noviZaposlenik.KontaktPodatciId
+        };
+
+        // Dodaj ispitivanje u bazu podataka
+        return await _zaposleniciRepo.PostZaposlenici(zaposleniciEntity);
+    }
 }
