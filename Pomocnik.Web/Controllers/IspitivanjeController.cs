@@ -39,24 +39,11 @@ public class IspitivanjeController : ControllerBase
     }
     
     // dohvati sva ispitivanja
-    [HttpGet("Lista svih ispitivanja")]
-    public ActionResult<List<GetAllIspitivanjeResponseVM>> GetAllIspitivanje()
+    [HttpGet("Listasvihispitivanja")]
+    public async Task<ActionResult<List<GetAllIspitivanjeResponseVM>>> GetAllIspitivanje()
     {
-        try
-        {
-            List<GetAllIspitivanjeResponseVM?> ispitivanja = _ispitivanjeService.GetAllIspitivanje();
-
-            if (ispitivanja.Count > 0)
-            {
-                return Ok(ispitivanja);
-            }
-
-            return NotFound("Nema dostupnih ispitivanja.");
-        }
-        catch
-        {
-            return StatusCode(500, "Greška pri pozivu servisa");
-        }
+        var ispitivanje = await _ispitivanjeService.GetAllIspitivanje();
+            return Ok(ispitivanje);
     }
     
     // dodaj novo ispitivanje

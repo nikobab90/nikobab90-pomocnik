@@ -65,13 +65,14 @@ public class IspitivanjeRepo
     }
     
     // dohvati sva ispitivanja
-    public List<GetAllIspitivanjeResponseVM?> GetAllIspitivanje()
+    public async Task<List<GetAllIspitivanjeResponseVM?>> GetAllIspitivanje()
     {
         using IDbConnection db = GetConnection();
     
-        var ispitivanja = db.Query<GetAllIspitivanjeResponseVM>("GetAllIspitivanje", commandType: CommandType.StoredProcedure).ToList();
+        IEnumerable<GetAllIspitivanjeResponseVM> ispitivanja = await db.QueryAsync<GetAllIspitivanjeResponseVM>
+        ("GetAllIspitivanje", commandType: CommandType.StoredProcedure);
 
-        return ispitivanja;
+        return ispitivanja.ToList();
     }
 
     private SqlConnection GetConnection()

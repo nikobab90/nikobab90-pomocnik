@@ -11,6 +11,16 @@
   <component name="ChangeListManager">
     <list default="true" id="8733e4d6-e7d8-4d4c-bb80-a0d3e88ca6a4" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Pomocnik/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Pomocnik/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pomocnik.BAL/IspitivanjeService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Pomocnik.BAL/IspitivanjeService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pomocnik.BAL/ServisiranjeService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Pomocnik.BAL/ServisiranjeService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pomocnik.BAL/ZaposleniciService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Pomocnik.BAL/ZaposleniciService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pomocnik.DAL/IspitivanjeRepo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Pomocnik.DAL/IspitivanjeRepo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pomocnik.DAL/ServisiranjeRepo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Pomocnik.DAL/ServisiranjeRepo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pomocnik.DAL/ZaposleniciRepo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Pomocnik.DAL/ZaposleniciRepo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pomocnik.Web/Controllers/IspitivanjeController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Pomocnik.Web/Controllers/IspitivanjeController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pomocnik.Web/Controllers/KlijentiController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Pomocnik.Web/Controllers/KlijentiController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pomocnik.Web/Controllers/ServisiranjeController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Pomocnik.Web/Controllers/ServisiranjeController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pomocnik.Web/Controllers/ZaposleniciController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Pomocnik.Web/Controllers/ZaposleniciController.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,28 +41,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "main",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "HotReloadSettingsPage",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;HotReloadSettingsPage&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "rider.external.source.directories": [
-      "C:\\Users\\Niko\\AppData\\Roaming\\JetBrains\\Rider2023.2\\resharper-host\\DecompilerCache",
-      "C:\\Users\\Niko\\AppData\\Roaming\\JetBrains\\Rider2023.2\\resharper-host\\SourcesCache",
-      "C:\\Users\\Niko\\AppData\\Local\\Symbols\\src"
+  &quot;keyToStringList&quot;: {
+    &quot;rider.external.source.directories&quot;: [
+      &quot;C:\\Users\\Niko\\AppData\\Roaming\\JetBrains\\Rider2023.2\\resharper-host\\DecompilerCache&quot;,
+      &quot;C:\\Users\\Niko\\AppData\\Roaming\\JetBrains\\Rider2023.2\\resharper-host\\SourcesCache&quot;,
+      &quot;C:\\Users\\Niko\\AppData\\Local\\Symbols\\src&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected=".NET Launch Settings Profile.Pomocnik.Web: http">
     <configuration name="Pomocnik.Web: IIS Express" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
       <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/Pomocnik.Web/Pomocnik.Web.csproj" />
@@ -118,7 +128,8 @@
       <workItem from="1700685047976" duration="14270000" />
       <workItem from="1700702809807" duration="2985000" />
       <workItem from="1700780686077" duration="4109000" />
-      <workItem from="1700813820384" duration="19271000" />
+      <workItem from="1700813820384" duration="24305000" />
+      <workItem from="1701073440806" duration="3823000" />
     </task>
     <servers />
   </component>

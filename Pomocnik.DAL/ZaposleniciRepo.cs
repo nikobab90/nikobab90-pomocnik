@@ -25,13 +25,14 @@ public class ZaposleniciRepo
     }
     
     // dohvati sve zaposlenike
-    public List<GetAllZaposleniciResponseVM?> GetAllZaposlenici()
+    public async Task<List<GetAllZaposleniciResponseVM>> GetAllZaposlenici()
     {
         using IDbConnection db = GetConnection();
         
-        var zaposlenici = db.Query<GetAllZaposleniciResponseVM>("GetAllZaposlenici", commandType: CommandType.StoredProcedure).ToList();
+        IEnumerable<GetAllZaposleniciResponseVM> zaposlenici =await db.QueryAsync<GetAllZaposleniciResponseVM>
+            ("GetAllZaposlenici", commandType: CommandType.StoredProcedure);
 
-        return zaposlenici;
+        return zaposlenici.ToList();
     }
     
     private SqlConnection GetConnection()

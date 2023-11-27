@@ -39,23 +39,10 @@ public class ServisiranjeController : ControllerBase
     }
     
     //dohvati SVA servisiranja
-    [HttpGet("Lista svih servisiranja")]
-    public ActionResult<List<GetServisiranjeResponseVM>> GetAllServisiranje()
+    [HttpGet("listaSvihServisiranja")]
+    public async Task<ActionResult<List<GetServisiranjeResponseVM>>> GetAllServisiranje()
     {
-        try
-        {
-            List<GetAllServisiranjeResponseVM?> servisiranja = _servisiranjeService.GetAllServisiranje();
-
-            if (servisiranja.Count > 0)
-            {
-                return Ok(servisiranja);
-            }
-
-            return NotFound("Nema dostupnih ispitivanja.");
-        }
-        catch
-        {
-            return StatusCode(500, "Greška pri pozivu servisa");
-        }
+        var servisi =await _servisiranjeService.GetAllServisiranje();
+        return Ok(servisi);
     }
 }

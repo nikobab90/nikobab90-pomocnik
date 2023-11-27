@@ -20,10 +20,8 @@ public class ServisiranjeService
     }
     
     // dohvati SVA servisiranja
-    public List<GetAllServisiranjeResponseVM?> GetAllServisiranje()
+    public async Task<List<GetAllServisiranjeResponseVM>> GetAllServisiranje()
     {
-        List<GetAllServisiranjeResponseVM?> servisiranja = _servisiranjeRepo.GetAllServisiranje();
-
-        return servisiranja;
+        return await _servisiranjeRepo.GetAllServisiranje();
     }
 }

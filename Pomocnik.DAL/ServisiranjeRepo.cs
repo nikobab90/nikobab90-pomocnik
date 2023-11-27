@@ -25,13 +25,14 @@ public class ServisiranjeRepo
         return db.QueryFirstOrDefault<GetServisiranjeResponseVM>("GetServisiranje", parameters, commandType: CommandType.StoredProcedure);
     }
     //dohvati sva servisiranja
-    public List<GetAllServisiranjeResponseVM?> GetAllServisiranje()
+    public async Task<List<GetAllServisiranjeResponseVM>> GetAllServisiranje()
     {
         using IDbConnection db = GetConnection();
     
-        var servisi = db.Query<GetAllServisiranjeResponseVM>("GetAllServisiranje", commandType: CommandType.StoredProcedure).ToList();
+        IEnumerable<GetAllServisiranjeResponseVM> servisi = await db.QueryAsync<GetAllServisiranjeResponseVM>
+            ("GetAllServisiranje", commandType: CommandType.StoredProcedure);
 
-        return servisi;
+        return servisi.ToList();
     }
     
     private SqlConnection GetConnection()

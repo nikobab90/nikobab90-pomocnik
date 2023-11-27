@@ -20,14 +20,12 @@ public class IspitivanjeService
     }
     
     //dohvati sva ispitivanja
-    public List<GetAllIspitivanjeResponseVM?> GetAllIspitivanje()
+    public async Task<List<GetAllIspitivanjeResponseVM>> GetAllIspitivanje()
     {
-        List<GetAllIspitivanjeResponseVM?> ispitivanja = _ispitivanjeRepo.GetAllIspitivanje();
-
-        return ispitivanja;
+        return await _ispitivanjeRepo.GetAllIspitivanje();
     }
     
-// dodaj novo ispitivanje
+    // dodaj novo ispitivanje
     public void PostIspitivanje(PostIspitivanjeVM novoIspitivanje)
     {
         // Pretvori GetIspitivanjeResponseVM u instancu Ispitivanje entiteta 

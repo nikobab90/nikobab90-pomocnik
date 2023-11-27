@@ -18,6 +18,7 @@ public class ZaposleniciController : ControllerBase
         _logger = logger;
         _zaposleniciService = zaposleniciService;
     }
+
     // dohvati zaposlenike po id-u
     [HttpGet("{id}")]
     public ActionResult GetZaposlenik([FromRoute] int id)
@@ -38,25 +39,12 @@ public class ZaposleniciController : ControllerBase
             return StatusCode(500, "Greška pri pozivu servisa");
         }
     }
-    
+
     // dohvati sve zaposlenike
-    [HttpGet("Popis svih zaposlenika")]
-    public ActionResult<List<GetAllZaposleniciResponseVM?>> GetAllZaposlenici()
+    [HttpGet("popisSvihzaposlenika")]
+    public async Task<ActionResult<List<GetAllZaposleniciResponseVM>>> GetAllZaposlenici()
     {
-        try
-        {
-            List<GetAllZaposleniciResponseVM?> zaposlenici = _zaposleniciService.GetAllZaposlenici();
-
-            if (zaposlenici.Count > 0)
-            {
-                return Ok(zaposlenici);
-            }
-
-            return NotFound("Nema dostupnih zaposlenika.");
-        }
-        catch
-        {
-            return StatusCode(500, "Greška pri pozivu servisa");
-        }
+        var zaposleni = await _zaposleniciService.GetAllZaposlenici();
+        return Ok(zaposleni);
     }
 }

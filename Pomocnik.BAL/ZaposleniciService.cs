@@ -21,10 +21,8 @@ public class ZaposleniciService
     }
     
     // dohvati sve zaposlenike
-    public List<GetAllZaposleniciResponseVM?> GetAllZaposlenici()
+    public async Task<List<GetAllZaposleniciResponseVM>> GetAllZaposlenici()
     {
-        List<GetAllZaposleniciResponseVM?> zaposlenici = _zaposleniciRepo.GetAllZaposlenici();
-
-        return zaposlenici;
+        return await _zaposleniciRepo.GetAllZaposlenici();
     }
 }

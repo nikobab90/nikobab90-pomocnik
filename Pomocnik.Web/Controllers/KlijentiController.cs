@@ -46,5 +46,4 @@ public class KlijentiController : ControllerBase
         var tvrtke = await _klijentiService.GetAllTvrtka();
         return Ok(tvrtke);
     }
-    
 }
