@@ -11,7 +11,6 @@ public class KlijentiController : ControllerBase
 {
     private readonly ILogger<KlijentiController> _logger;
     private readonly KlijentiService _klijentiService;
-    
     public KlijentiController(ILogger<KlijentiController> logger,
         KlijentiService klijentiService)
     {
@@ -39,7 +38,6 @@ public class KlijentiController : ControllerBase
         }
     }
     
-    // dohvati sve tvrtke
     [HttpGet("popisSvihklijenata")]
     public async Task<ActionResult<List<GetAllKlijentiResponseVM>>> GetAllTvrtka()
     {
@@ -47,7 +45,6 @@ public class KlijentiController : ControllerBase
         return Ok(tvrtke);
     }
     
-    // dodaj novog Klijenta/Tvrtku
     [HttpPost]
     public async Task<IActionResult> PostTvrtka([FromBody] PostKlijentiVM klijent)
     {
@@ -59,6 +56,27 @@ public class KlijentiController : ControllerBase
         catch (Exception ex)
         {
             return StatusCode(500, "Došlo je do greške prilikom umetanja Tvrtke: " + ex.Message);
+        }
+    }
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> IzbrisiTvrtkuById(int id)
+    {
+        try
+        {
+            int affectedRows = await _klijentiService.IzbrisiTvrtkuById(id);
+
+            if (affectedRows > 0)
+            {
+                return Ok("Tvrtka je uspješno izbrisana.");
+            }
+            else
+            {
+                return NotFound("Tvrtka nije pronađena ili je već izbrisana.");
+            }
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, "Došlo je do greške prilikom brisanja Zaposlenika: " + ex.Message);
         }
     }
 }

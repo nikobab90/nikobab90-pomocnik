@@ -11,15 +11,13 @@ public class ZaposleniciController : ControllerBase
 {
     private readonly ILogger<ZaposleniciController> _logger;
     private readonly ZaposleniciService _zaposleniciService;
-
     public ZaposleniciController(ILogger<ZaposleniciController> logger,
         ZaposleniciService zaposleniciService)
     {
         _logger = logger;
         _zaposleniciService = zaposleniciService;
     }
-
-    // dohvati zaposlenike po id-u
+    
     [HttpGet("{id}")]
     public ActionResult GetZaposlenik([FromRoute] int id)
     {
@@ -31,7 +29,6 @@ public class ZaposleniciController : ControllerBase
             {
                 return Ok(zaposlenik);
             }
-
             return NotFound();
         }
         catch
@@ -39,16 +36,14 @@ public class ZaposleniciController : ControllerBase
             return StatusCode(500, "Greška pri pozivu servisa");
         }
     }
-
-    // dohvati sve zaposlenike
+    
     [HttpGet("popisSvihzaposlenika")]
     public async Task<ActionResult<List<GetAllZaposleniciResponseVM>>> GetAllZaposlenici()
     {
         var zaposleni = await _zaposleniciService.GetAllZaposlenici();
         return Ok(zaposleni);
     }
-
-    // dodaj novog Zaposlenika
+    
     [HttpPost]
     public async Task<IActionResult> PostZaposlenici([FromBody] PostZaposleniciVM zaposlenik)
     {
@@ -60,6 +55,28 @@ public class ZaposleniciController : ControllerBase
         catch (Exception ex)
         {
             return StatusCode(500, "Došlo je do greške prilikom umetanja zaposlenika: " + ex.Message);
+        }
+    }
+    
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteZaposlenika(int id)
+    {
+        try
+        {
+            int affectedRows = await _zaposleniciService.IzbrisiaposlenikaById(id);
+
+            if (affectedRows > 0)
+            {
+                return Ok("Zaposlenik je uspješno izbrisan.");
+            }
+            else
+            {
+                return NotFound("Zaposlenik nije pronađen ili je već izbrisan.");
+            }
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, "Došlo je do greške prilikom brisanja Zaposlenika: " + ex.Message);
         }
     }
 }

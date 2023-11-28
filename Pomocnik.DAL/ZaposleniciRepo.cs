@@ -9,12 +9,11 @@ namespace Pomocnik.DAL;
 public class ZaposleniciRepo
 {
     private readonly IConfiguration _configuration;
-
     public ZaposleniciRepo(IConfiguration configuration)
     {
         _configuration = configuration;
     }
-    // dohvati zaposlenika po id-u
+    
     public GetZaposlenikResponseVM? GetZaposlenik(int id)
     {
         using IDbConnection db = GetConnection();
@@ -24,7 +23,6 @@ public class ZaposleniciRepo
         return db.QueryFirstOrDefault<GetZaposlenikResponseVM>("Getzaposlenik", parameters, commandType: CommandType.StoredProcedure);
     }
     
-    // dohvati sve zaposlenike
     public async Task<List<GetAllZaposleniciResponseVM>> GetAllZaposlenici()
     {
         using IDbConnection db = GetConnection();
@@ -35,7 +33,6 @@ public class ZaposleniciRepo
         return zaposlenici.ToList();
     }
     
-    // dodaj novog zaposlenika
     public async Task<int> PostZaposlenici(PostZaposleniciVM zaposlenik)
     {
         using IDbConnection db = GetConnection();
@@ -51,6 +48,17 @@ public class ZaposleniciRepo
             },
             commandType: CommandType.StoredProcedure);
         return result.First();
+    }
+    
+    public async Task<int> IzbrisiaposlenikaById(int id)
+    {
+        using IDbConnection db = GetConnection();
+    
+        var parameters = new
+        {
+            Id = id
+        };
+        return await db.ExecuteAsync("IzbrisiaposlenikaById", parameters, commandType: CommandType.StoredProcedure);
     }
     
     private SqlConnection GetConnection()

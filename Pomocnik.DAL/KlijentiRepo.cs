@@ -9,7 +9,6 @@ namespace Pomocnik.DAL;
 public class KlijentiRepo
 {
     private readonly IConfiguration _configuration;
-
     public KlijentiRepo(IConfiguration configuration)
     {
         _configuration = configuration;
@@ -34,7 +33,6 @@ public class KlijentiRepo
         return klijenti.ToList();
     }
     
-    // dodaj novu tvrtku
     public async Task<int> PostTvrtka(PostKlijentiVM klijent)
     {
         using IDbConnection db = GetConnection();
@@ -45,10 +43,19 @@ public class KlijentiRepo
                 klijent.Oib,
                 klijent.OvlastenikId,
                 klijent.KontaktPodatciId
-                
             },
             commandType: CommandType.StoredProcedure);
         return result.First();
+    }
+    public async Task<int> IzbrisiTvrtkuById(int id)
+    {
+        using IDbConnection db = GetConnection();
+    
+        var parameters = new
+        {
+            Id = id
+        };
+        return await db.ExecuteAsync("IzbrisiTvrtkuById", parameters, commandType: CommandType.StoredProcedure);
     }
     
     private SqlConnection GetConnection()

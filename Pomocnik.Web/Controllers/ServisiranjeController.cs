@@ -10,14 +10,13 @@ public class ServisiranjeController : ControllerBase
 {
     private readonly ILogger<ServisiranjeController> _logger;
     private readonly ServisiranjeService _servisiranjeService;
-
     public ServisiranjeController(ILogger<ServisiranjeController> logger,
         ServisiranjeService servisiranjeService)
     {
         _logger = logger;
         _servisiranjeService = servisiranjeService;
     }
-// dohvati servisiranja po id-u
+    
     [HttpGet("{id}")]
     public ActionResult GetServisiranje([FromRoute] int id)
     {
@@ -37,7 +36,6 @@ public class ServisiranjeController : ControllerBase
         }
     }
     
-    //dohvati SVA servisiranja
     [HttpGet("listaSvihServisiranja")]
     public async Task<ActionResult<List<GetServisiranjeResponseVM>>> GetAllServisiranje()
     {
@@ -45,7 +43,6 @@ public class ServisiranjeController : ControllerBase
         return Ok(servisi);
     }
     
-    // dodaj novo Servisiranje
     [HttpPost]
     public async Task<IActionResult> PostServisiranje([FromBody] PostServisiranjeVM servisiranje)
     {
@@ -57,6 +54,27 @@ public class ServisiranjeController : ControllerBase
         catch (Exception ex)
         {
             return StatusCode(500, "Došlo je do greške prilikom umetanja Tvrtke: " + ex.Message);
+        }
+    }
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> IzbrisiServisiranje(int id)
+    {
+        try
+        {
+            int affectedRows = await _servisiranjeService.IzbrisiServisiranjeById(id);
+
+            if (affectedRows > 0)
+            {
+                return Ok("Servisiranje je uspješno izbrisano.");
+            }
+            else
+            {
+                return NotFound("Servisni nalog nije pronađen ili je već izbrisan.");
+            }
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, "Došlo je do greške prilikom brisanja Servisnog naloga: " + ex.Message);
         }
     }
 }

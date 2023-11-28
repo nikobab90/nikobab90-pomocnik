@@ -11,7 +11,7 @@ public class KlijentiService
     {
         _klijentiRepo = klijentiRepo;
     }
-    // dohvati tvrtku po id-u
+    
     public GetKlijentResponseVM? GetTvrtka(int id)
     {
         GetKlijentResponseVM? klijent = _klijentiRepo.GetTvrtka(id);
@@ -19,24 +19,17 @@ public class KlijentiService
         return klijent;
     }
 
-    // dohvati sve tvrtke
     public async Task<List<GetAllKlijentiResponseVM>> GetAllTvrtka()
     {
         return await _klijentiRepo.GetAllTvrtka();
     }
     
-    // dodaj novog Zaposlenika
     public async Task<int> PostTvrtka(PostKlijentiVM noviKlijent)
     {
-        var klijentiEntity = new PostKlijentiVM
-        {
-            Naziv = noviKlijent.Naziv,
-            Oib = noviKlijent.Oib,
-            OvlastenikId = noviKlijent.OvlastenikId,
-            KontaktPodatciId = noviKlijent.KontaktPodatciId,
-        };
-
-        // Dodaj Tvrtku u bazu podataka
-        return await _klijentiRepo.PostTvrtka(klijentiEntity);
+        return await _klijentiRepo.PostTvrtka(noviKlijent);
+    }
+    public async Task<int> IzbrisiTvrtkuById(int id)
+    {
+        return await _klijentiRepo.IzbrisiTvrtkuById(id);
     }
 }

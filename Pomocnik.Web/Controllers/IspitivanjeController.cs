@@ -10,14 +10,13 @@ public class IspitivanjeController : ControllerBase
 {
     private readonly ILogger<IspitivanjeController> _logger;
     private readonly IspitivanjeService _ispitivanjeService;
-
     public IspitivanjeController(ILogger<IspitivanjeController> logger,
         IspitivanjeService ispitivanjeService)
     {
         _logger = logger;
         _ispitivanjeService = ispitivanjeService;
     }
-// dohvati ispitivanje po id-u
+
     [HttpGet("{id}")]
     public ActionResult GetIspitivanje([FromRoute] int id)
     {
@@ -37,7 +36,6 @@ public class IspitivanjeController : ControllerBase
         }
     }
     
-    // dohvati sva ispitivanja
     [HttpGet("Listasvihispitivanja")]
     public async Task<ActionResult<List<GetAllIspitivanjeResponseVM>>> GetAllIspitivanje()
     {
@@ -45,7 +43,6 @@ public class IspitivanjeController : ControllerBase
             return Ok(ispitivanje);
     }
     
-    // dodaj novo ispitivanje
     [HttpPost]
     public async Task<IActionResult> PostIspitivanje([FromBody] PostIspitivanjeVM ispitivanje)
     {
@@ -57,6 +54,27 @@ public class IspitivanjeController : ControllerBase
         catch (Exception ex)
         {
             return StatusCode(500, "Došlo je do greške prilikom umetanja Tvrtke: " + ex.Message);
+        }
+    }
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> IzbrisiIspitivanjeById(int id)
+    {
+        try
+        {
+            int affectedRows = await _ispitivanjeService.IzbrisiIspitivanjeById(id);
+
+            if (affectedRows > 0)
+            {
+                return Ok("Ispitivanje je uspješno izbrisano.");
+            }
+            else
+            {
+                return NotFound("Ispitivanje nije pronađeno ili je već izbrisano.");
+            }
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, "Došlo je do greške prilikom brisanja Ispitivanja: " + ex.Message);
         }
     }
 }

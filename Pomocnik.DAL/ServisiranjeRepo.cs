@@ -9,12 +9,11 @@ namespace Pomocnik.DAL;
 public class ServisiranjeRepo
 {
     private readonly IConfiguration _configuration;
-
     public ServisiranjeRepo(IConfiguration configuration)
     {
         _configuration = configuration;
     }
-    //dohvati servisiranje po id-u
+    
     public GetServisiranjeResponseVM? GetServisiranje(int id)
     {
         using IDbConnection db = GetConnection();
@@ -24,7 +23,7 @@ public class ServisiranjeRepo
         
         return db.QueryFirstOrDefault<GetServisiranjeResponseVM>("GetServisiranje", parameters, commandType: CommandType.StoredProcedure);
     }
-    //dohvati sva servisiranja
+    
     public async Task<List<GetAllServisiranjeResponseVM>> GetAllServisiranje()
     {
         using IDbConnection db = GetConnection();
@@ -35,7 +34,6 @@ public class ServisiranjeRepo
         return servisi.ToList();
     }
     
-    // dodaj novo Servisiranje
     public async Task<int> PostServisiranje(PostServisiranjeVM servisiranje)
     {
         using IDbConnection db = GetConnection();
@@ -56,7 +54,16 @@ public class ServisiranjeRepo
             commandType: CommandType.StoredProcedure);
         return result.First();
     }
+    public async Task<int> IzbrisiServisiranjeById(int id)
+    {
+        using IDbConnection db = GetConnection();
     
+        var parameters = new
+        {
+            Id = id
+        };
+        return await db.ExecuteAsync("IzbrisiServisiranjeById", parameters, commandType: CommandType.StoredProcedure);
+    }
     private SqlConnection GetConnection()
     {
         return new SqlConnection(_configuration.GetConnectionString("DefaultConnection"));

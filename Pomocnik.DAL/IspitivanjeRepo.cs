@@ -9,13 +9,11 @@ namespace Pomocnik.DAL;
 public class IspitivanjeRepo
 {
     private readonly IConfiguration _configuration;
-
     public IspitivanjeRepo(IConfiguration configuration)
     {
         _configuration = configuration;
     }
-
-    // dohvati ispitivanje po id-u
+    
     public GetIspitivanjeResponseVM? GetIspitivanje(int id)
     {
         using IDbConnection db = GetConnection();
@@ -26,7 +24,7 @@ public class IspitivanjeRepo
         return db.QueryFirstOrDefault<GetIspitivanjeResponseVM>("GetIspitivanje", parameters,
             commandType: CommandType.StoredProcedure);
     }
-    // dohvati sva ispitivanja
+    
     public async Task<List<GetAllIspitivanjeResponseVM?>> GetAllIspitivanje()
     {
         using IDbConnection db = GetConnection();
@@ -37,7 +35,6 @@ public class IspitivanjeRepo
         return ispitivanja.ToList()!;
     }
     
-    // dodaj novo ispitivanje
     public async Task<int> PostIspitivanje(PostIspitivanjeVM ispitivanje)
     {
         using IDbConnection db = GetConnection();
@@ -58,7 +55,16 @@ public class IspitivanjeRepo
             commandType: CommandType.StoredProcedure);
         return result.First();
     }
-
+    public async Task<int> IzbrisiIspitivanjeById(int id)
+    {
+        using IDbConnection db = GetConnection();
+    
+        var parameters = new
+        {
+            Id = id
+        };
+        return await db.ExecuteAsync("IzbrisiIspitivanjeById", parameters, commandType: CommandType.StoredProcedure);
+    }
     private SqlConnection GetConnection()
     {
         return new SqlConnection(_configuration.GetConnectionString("DefaultConnection"));
